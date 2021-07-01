@@ -1,6 +1,6 @@
 # SeqAttack: a framework for adversarial attacks on token classification models
 
-This repository contains the code for "SeqAttack: On Adversarial Attacks For Named Entity Recognition". The framework is contained in the `textattackner` folder, and it is built on top of `TextAttack`. The structure of my framework is very similar to `TextAttack`, and thus the best resource for learning more is the base framework [documentation](https://textattack.readthedocs.io/en/latest/), alongside with the in-code comments in `textattackner`.
+This repository contains the code for "SeqAttack: On Adversarial Attacks For Named Entity Recognition". The framework is contained in the `textattackner` folder, and it is built on top of `TextAttack`. The structure of the framework is very similar to `TextAttack`, and thus the best resource for learning more is the base framework [documentation](https://textattack.readthedocs.io/en/latest/), alongside with the in-code comments in `textattackner`.
 
 ### Setup
 
@@ -20,3 +20,7 @@ This repository ships with a few cli files for running experiments and working w
 - `metrics-runner.py`: CoNLL2003 metrics calculation for attacked datasets, label utilities for visualization
 
 In addition to these cli scripts, `experiments/analyze-json.py` prints a human-readable representation of an attacked dataset.
+
+### Adversarial examples visualization
+
+The output datasets can be visualized with [SeqAttack-Visualization](https://github.com/WalterSimoncini/SeqAttack-Visualization)
