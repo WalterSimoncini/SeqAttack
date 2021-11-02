@@ -70,3 +70,7 @@ class UntargetedNERGoalFunction(NERGoalFunction):
 
         # Return the percentage of mispredicted entities
         return (total_score / named_entities_ground_truth.sum()).item()
+
+    @property
+    def name(self):
+        return "Untargeted NER goal function"

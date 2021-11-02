@@ -54,6 +54,7 @@ def attack(
 
     ctx.ensure_object(dict)
     ctx.obj["attack_args"] = {
+        "random_seed": random_seed,
         "model": model,
         "model_name": model_name,
         "tokenizer": tokenizer,
@@ -63,7 +64,8 @@ def attack(
         "dataset": dataset,
         "max_entities_mispredicted": max_entities_mispredicted,
         "output_path": output_path,
-        "attack_timeout": attack_timeout
+        "attack_timeout": attack_timeout,
+        "num_examples": num_examples
     }
 
 
@@ -73,18 +75,22 @@ def attack(
 @click.pass_context
 def bert_attack(ctx, max_words_perturbed, max_candidates):
     bert_attack_args = {
+        "recipe": "bert-attack",
         "max_perturbed_percent": max_words_perturbed,
         "max_candidates": max_candidates,
         "additional_constraints": BertAttackNER.get_ner_constraints(ctx.obj["attack_args"]["model_name"])
     }
 
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **bert_attack_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = bert_attack_args
+
     attack = BertAttackNER.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()
 
 
@@ -93,17 +99,21 @@ def bert_attack(ctx, max_words_perturbed, max_candidates):
 @click.pass_context
 def clare(ctx, max_candidates):
     clare_attack_args = {
+        "recipe": "clare",
         "max_candidates": max_candidates,
         "additional_constraints": NERCLARE.get_ner_constraints(ctx.obj["attack_args"]["model_name"])
     }
 
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **clare_attack_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = clare_attack_args
+
     attack = NERCLARE.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()
 
 
@@ -113,6 +123,7 @@ def clare(ctx, max_candidates):
 @click.pass_context
 def deepwordbug(ctx, max_edit_distance, preserve_named_entities):
     deepwordbug_args = {
+        "recipe": "deepwordbug",
         "max_edit_distance": max_edit_distance,
         "additional_constraints": NERDeepWordBugGao2018.get_ner_constraints(
             ctx.obj["attack_args"]["model_name"],
@@ -121,26 +132,36 @@ def deepwordbug(ctx, max_edit_distance, preserve_named_entities):
     }
 
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **deepwordbug_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = deepwordbug_args
+
     attack = NERDeepWordBugGao2018.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()
 
 
 @attack.command()
 @click.pass_context
 def scpn(ctx):
-    scpn_attack_args = {"additional_constraints": []}
+    scpn_attack_args = {
+        "recipe": "scpn",
+        "additional_constraints": []
+    }
+
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **scpn_attack_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = scpn_attack_args
+
     attack = NERSCPNParaphrase.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()
 
 
@@ -149,17 +170,21 @@ def scpn(ctx):
 @click.pass_context
 def textfooler(ctx, max_candidates):
     textfooler_attack_args = {
+        "recipe": "textfooler",
         "max_candidates": max_candidates,
         "additional_constraints": NERTextFoolerJin2019.get_ner_constraints(ctx.obj["attack_args"]["model_name"])
     }
 
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **textfooler_attack_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = textfooler_attack_args
+
     attack = NERTextFoolerJin2019.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()
 
 
@@ -168,17 +193,21 @@ def textfooler(ctx, max_candidates):
 @click.pass_context
 def bae(ctx, max_candidates):
     bae_attack_args = {
+        "recipe": "bae",
         "max_candidates": max_candidates,
         "additional_constraints": NERBAEGarg2019.get_ner_constraints(ctx.obj["attack_args"]["model_name"])
     }
 
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **bae_attack_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = bae_attack_args
+
     attack = NERBAEGarg2019.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()
 
 
@@ -186,16 +215,20 @@ def bae(ctx, max_candidates):
 @click.pass_context
 def morpheus(ctx):
     morpheus_args = {
+        "recipe": "morpheus",
         "additional_constraints": MorpheusTan2020NER.get_ner_constraints(
             ctx.obj["attack_args"]["model_name"]
         )
     }
 
     ctx.obj["attack_args"] = {**ctx.obj["attack_args"], **morpheus_args}
+    ctx.obj["attack_args"]["recipe_metadata"] = morpheus_args
+
     attack = MorpheusTan2020NER.build(**ctx.obj["attack_args"])
 
     AttackRunner(
         attack=attack,
         dataset=ctx.obj["attack_args"]["dataset"],
-        output_filename=ctx.obj["attack_args"]["output_path"]
+        output_filename=ctx.obj["attack_args"]["output_path"],
+        attack_args=ctx.obj["attack_args"]
     ).run()

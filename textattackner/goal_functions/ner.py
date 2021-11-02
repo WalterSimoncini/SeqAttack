@@ -116,3 +116,7 @@ class NERGoalFunction(GoalFunction):
 
     def class_for_label(self, label):
         return label.replace("I-", "").replace("B-", "")
+
+    @property
+    def name(self):
+        return "NER goal function"

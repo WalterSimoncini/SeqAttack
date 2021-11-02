@@ -45,7 +45,7 @@ class NERHuggingFaceDataset(NERDataset):
             examples_ner_tags
         ))
 
-        self.split = split
+        self.dataset_split = split
 
         super().__init__(
             dataset,
@@ -72,3 +72,8 @@ class NERHuggingFaceDataset(NERDataset):
                 num_examples=num_examples,
                 labels_map=labels_map
             )
+
+    @property
+    def split(self):
+        """The dataset split if any"""
+        return self.dataset_split

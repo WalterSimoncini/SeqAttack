@@ -14,7 +14,7 @@ from transformers import (
 
 
 class NERModelWrapper(ModelWrapper):
-    def __init__(self, model, tokenizer, postprocess_func):
+    def __init__(self, model, tokenizer, postprocess_func, name:str = None):
         self.model = model
         self.tokenizer = tokenizer
 
@@ -24,6 +24,7 @@ class NERModelWrapper(ModelWrapper):
         # model_output: the model outputs
         # tokenized_input: the tokenized original text
         self.postprocess_func = postprocess_func
+        self.name = name
 
     def __call__(self, text_inputs_list, raise_excs=False):
         """
@@ -89,4 +90,5 @@ class NERModelWrapper(ModelWrapper):
         return tokenizer, NERModelWrapper(
             model,
             tokenizer,
-            postprocess_func=postprocess_ner_output)
+            postprocess_func=postprocess_ner_output,
+            name=model_name)

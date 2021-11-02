@@ -59,3 +59,8 @@ class NERDataset:
     def name(self):
         """The dataset name if any"""
         return self.dataset_name
+
+    @property
+    def split(self):
+        """The dataset split if any"""
+        return None

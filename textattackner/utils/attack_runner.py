@@ -6,10 +6,12 @@ class AttackRunner():
             self,
             attack,
             dataset,
-            output_filename: str) -> None:
+            output_filename: str,
+            attack_args: dict = None) -> None:
         self.attack = attack
         self.dataset = dataset
         self.output_filename = output_filename
+        self.attack_args = attack_args
 
     def run(self):
         attack_results = []
@@ -101,7 +103,26 @@ class AttackRunner():
 
     def save_results(self, attack_results):
         with open(self.output_filename, "w") as out_file:
+            recipe_metadata = self.attack_args["recipe_metadata"]
+            recipe_metadata["additional_constraints"] = [
+                str(const) for const in recipe_metadata["additional_constraints"]
+            ]
+
             out_file.write(json.dumps({
-                "config": {},
+                "config": {
+                    "goal_function": self.attack.goal_function.name,
+                    "model": self.attack_args["model"].name,
+                    "tokenizer": str(self.attack_args["tokenizer"]),
+                    "dataset": self.attack_args["dataset"].name,
+                    "cache": self.attack_args["use_cache"],
+                    "query_budget": self.attack_args["query_budget"],
+                    "random_seed": self.attack_args["random_seed"],
+                    "examples_count": self.attack_args["num_examples"],
+                    "max_entities_mispredicted": self.attack_args["max_entities_mispredicted"],
+                    "attack_timeout": self.attack_args["attack_timeout"],
+                    "split": self.attack_args["dataset"].split,
+                    "recipe": self.attack_args["recipe"],
+                    "recipe_args": recipe_metadata
+                },
                 "attacked_examples": attack_results
             }))

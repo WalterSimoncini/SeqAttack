@@ -61,3 +61,7 @@ class TargetedNERGoalFunction(NERGoalFunction):
                 total_score += no_entity_confidence
 
         return float(total_score / truth_entities_mask.sum())
+
+    @property
+    def name(self):
+        return "Targeted NER goal function"

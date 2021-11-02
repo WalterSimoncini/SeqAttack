@@ -54,3 +54,7 @@ class StrictUntargetedNERGoalFunction(UntargetedNERGoalFunction):
             return (mispredicted_tokens_count / named_entities_ground_truth.sum()).item()
 
         return 0
+
+    @property
+    def name(self):
+        return "Strict untargeted NER goal function"
