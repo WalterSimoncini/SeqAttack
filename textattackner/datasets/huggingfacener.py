@@ -1,5 +1,5 @@
+import os
 import json
-from os import name
 
 from datasets import load_dataset
 
@@ -30,18 +30,27 @@ class NERHuggingFaceDataset(NERDataset):
             labels_map:      a dictionary (e.g. {0: 2, 1: 3, ...}) that remaps the ground truth,
                             useful to align the model output and the dataset
         """
-        dataset = load_dataset(name, None, split=split)
+        if os.path.isfile(name):
+            dataset = json.loads(open(name).read())
+
+            dataset_tokens, dataset_ner_tags = zip(*dataset["samples"])
+            dataset_tokens = [sample.split(" ") for sample in dataset_tokens]
+        else:
+            dataset = load_dataset(name, None, split=split)
+
+            dataset_ner_tags = dataset["ner_tags"]
+            dataset_tokens = dataset["tokens"]
 
         if labels_map:
             examples_ner_tags = [
                 [labels_map[tag] for tag in tags]
-                for tags in dataset["ner_tags"]
+                for tags in dataset_ner_tags
             ]
         else:
-            examples_ner_tags = dataset["ner_tags"]
+            examples_ner_tags = dataset_ner_tags
 
         dataset = list(zip(
-            [" ".join(x) for x in dataset["tokens"]],
+            [" ".join(x) for x in dataset_tokens],
             examples_ner_tags
         ))
 
