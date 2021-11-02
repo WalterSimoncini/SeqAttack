@@ -1,4 +1,4 @@
-# Disk size should be 50 GB
+# Disk size should be ~50 GB
 
 # Install python3
 sudo apt update
@@ -19,7 +19,7 @@ sh Anaconda3-2020.11-Linux-x86_64.sh -b
 source ~/.bashrc
 
 # Create python 3.6 environment
-conda create -n thesis python=3.6 -y
+conda create -n thesis python=3.7 -y
 conda activate thesis
 
 # Install requirements

@@ -1,0 +1,8 @@
+torch==1.7.0
+textattack==0.2.15
+tensorflow==2.3.4
+tensorflow-hub
+pygit2
+python-Levenshtein
+seqeval
+openattack

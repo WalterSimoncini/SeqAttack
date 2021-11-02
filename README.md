@@ -8,7 +8,7 @@ SeqAttack is a framework for conducting adversarial attacks against Named Entity
 
 ### Setup
 
-In order to run the code, I recommend setting up a linux-based virtual machine (only tested on Ubuntu) and running `scripts/gcp.sh`, which sets up an environment with the minimal requirements for running the code. We provide a pre-trained BERT model on CoNLL2003, downloadable at this [link](http://ashita.nl/models/seq-attack/conll2003-ner.tar.gz)
+Run `pip install -r requirements.txt` and you're good to go! If you want to run experiments on a virtual machine, check out `scripts/gcp.sh`. The code was tested with `python 3.7`, if you're using a different version your mileage may vary.
 
 ### Usage
 

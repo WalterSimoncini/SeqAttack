@@ -121,4 +121,4 @@ class NERTextFoolerJin2019(SeqAttackRecipe):
             constraints,
             transformation,
             search_method,
-            attack_timeout=attack_timeout,)
+            attack_timeout=attack_timeout)
