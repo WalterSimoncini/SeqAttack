@@ -20,17 +20,22 @@ from textattack.transformations import (
     WordSwapRandomCharacterSubstitution,
 )
 
-from textattack.attack_recipes import AttackRecipe
-
+from textattackner.models import NERModelWrapper
 from textattackner.search import NERGreedyWordSwapWIR
 
 from textattackner.utils import postprocess_ner_output
 from textattackner.utils.attack import NERAttack
-
 from textattackner.constraints import SkipNegations
+from .seqattack_recipe import SeqAttackRecipe
+
+from textattackner.constraints import (
+    SkipModelErrors,
+    AvoidNamedEntityConstraint,
+    NonNamedEntityConstraint
+)
 
 
-class NERDeepWordBugGao2018(AttackRecipe):
+class NERDeepWordBugGao2018(SeqAttackRecipe):
     """
         Gao, Lanchantin, Soffa, Qi.
 
@@ -49,7 +54,8 @@ class NERDeepWordBugGao2018(AttackRecipe):
             use_cache=True,
             query_budget=512,
             additional_constraints=[],
-            use_all_transformations=True):
+            use_all_transformations=True,
+            **kwargs):
         #
         # Swap characters out from words. Choose the best of four potential transformations.
         #
@@ -111,3 +117,21 @@ class NERDeepWordBugGao2018(AttackRecipe):
             constraints,
             transformation,
             search_method)
+
+    @staticmethod
+    def get_ner_constraints(model_name, **kwargs):
+        preserve_named_entities = kwargs.get("preserve_named_entities", False)
+
+        constraints_model_wrapper = NERModelWrapper.load_huggingface_model(
+            model_name=model_name
+        )[1]
+
+        constraints = [
+            SkipModelErrors(model_wrapper=constraints_model_wrapper)
+        ]
+
+        if preserve_named_entities:
+            constraints.append(AvoidNamedEntityConstraint(ner_model_wrapper=constraints_model_wrapper))
+            constraints.append(NonNamedEntityConstraint())
+
+        return constraints

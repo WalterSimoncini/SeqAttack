@@ -26,9 +26,10 @@ from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, \
     SkipNegations
 
 from textattackner.utils.attack import NERAttack
+from .seqattack_recipe import SeqAttackRecipe
 
 
-class NERTextFoolerJin2019(AttackRecipe):
+class NERTextFoolerJin2019(SeqAttackRecipe):
     """
         Jin, D., Jin, Z., Zhou, J.T., & Szolovits, P. (2019).
 
@@ -46,7 +47,8 @@ class NERTextFoolerJin2019(AttackRecipe):
             max_candidates=50,
             additional_constraints=[],
             query_budget=2500,
-            use_cache=False):
+            use_cache=False,
+            **kwargs):
         #
         # Swap words with their 50 closest embedding nearest-neighbors.
         # Embedding: Counter-fitted PARAGRAM-SL999 vectors.
@@ -93,6 +95,7 @@ class NERTextFoolerJin2019(AttackRecipe):
         )
 
         constraints.append(use_constraint)
+        constraints.extend(additional_constraints)
 
         #
         # Goal is untargeted classification

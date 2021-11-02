@@ -3,8 +3,6 @@ BAE (BAE: BERT-Based Adversarial Examples)
 ============================================
 
 """
-from textattack.shared.attack import Attack
-
 from textattack.constraints.grammaticality import PartOfSpeech
 from textattack.constraints.pre_transformation import (
     RepeatModification,
@@ -19,11 +17,11 @@ from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, Sk
 from textattackner.search import NERGreedyWordSwapWIR
 from textattackner.utils import postprocess_ner_output
 
-from textattack.attack_recipes import AttackRecipe
 from textattackner.utils.attack import NERAttack
+from .seqattack_recipe import SeqAttackRecipe
 
 
-class NERBAEGarg2019(AttackRecipe):
+class NERBAEGarg2019(SeqAttackRecipe):
     """Siddhant Garg and Goutham Ramakrishnan, 2019.
 
     BAE: BERT-based Adversarial Examples for Text Classification.
@@ -51,7 +49,8 @@ class NERBAEGarg2019(AttackRecipe):
             max_candidates=50,
             additional_constraints=[],
             query_budget=2500,
-            use_cache=False):
+            use_cache=False,
+            **kwargs):
         # "In this paper, we present a simple yet novel technique: BAE (BERT-based
         # Adversarial Examples), which uses a language model (LM) for token
         # replacement to best fit the overall context. We perturb an input sentence

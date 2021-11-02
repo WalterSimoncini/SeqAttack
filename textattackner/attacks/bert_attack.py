@@ -1,17 +1,16 @@
-from textattack.shared.attack import Attack
-from textattack.attack_recipes import AttackRecipe
 from textattack.transformations import WordSwapMaskedLM
 from textattack.constraints.overlap import MaxWordsPerturbed
 from textattack.constraints.semantics.sentence_encoders import UniversalSentenceEncoder
 from textattack.constraints.pre_transformation import RepeatModification, StopwordModification
 
-from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, SkipNegations
+from textattackner.constraints import SkipNonASCII, SkipNegations
 from textattackner.search import NERGreedyWordSwapWIR
 from textattackner.utils import postprocess_ner_output
 from textattackner.utils.attack import NERAttack
+from .seqattack_recipe import SeqAttackRecipe
 
 
-class BertAttackNER(AttackRecipe):
+class BertAttackNER(SeqAttackRecipe):
     """
         Li, L.., Ma, R., Guo, Q., Xiangyang, X., Xipeng, Q. (2020).
         BERT-ATTACK: Adversarial Attack Against BERT Using BERT
@@ -33,7 +32,9 @@ class BertAttackNER(AttackRecipe):
             max_candidates=48,
             additional_constraints=[],
             query_budget=2500,
-            use_cache=False):
+            use_cache=False,
+            max_entities_mispredicted=0.8,
+            **kwargs):
         transformation = WordSwapMaskedLM(
             method="bert-attack",
             max_candidates=max_candidates)
@@ -45,9 +46,7 @@ class BertAttackNER(AttackRecipe):
             StopwordModification(),
             SkipNonASCII(),
             SkipNegations(),
-            MaxWordsPerturbed(max_percent=max_perturbed_percent),
-            # Avoid modifying ground truth named entities
-            NonNamedEntityConstraint()]
+            MaxWordsPerturbed(max_percent=max_perturbed_percent)]
 
         constraints.extend(additional_constraints)
 
@@ -77,4 +76,5 @@ class BertAttackNER(AttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            max_entities_mispredicted=max_entities_mispredicted)

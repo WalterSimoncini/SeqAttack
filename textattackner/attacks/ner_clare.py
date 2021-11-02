@@ -11,9 +11,10 @@ from textattackner.transformations import RoBERTaWordInsertionMaskedLM
 from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, SkipNegations
 from textattackner.search import GreedySearchNER
 from textattackner.utils.attack import NERAttack
+from .seqattack_recipe import SeqAttackRecipe
 
 
-class NERCLARE(AttackRecipe):
+class NERCLARE(SeqAttackRecipe):
     """
         Li, Zhang, Peng, Chen, Brockett, Sun, Dolan.
 
@@ -26,15 +27,15 @@ class NERCLARE(AttackRecipe):
     """
     @staticmethod
     def build(
-        model,
-        tokenizer,
-        dataset,
-        goal_function_class,
-        max_candidates=50,
-        additional_constraints=[],
-        query_budget=2500,
-        use_cache=False):
-
+            model,
+            tokenizer,
+            dataset,
+            goal_function_class,
+            max_candidates=50,
+            additional_constraints=[],
+            query_budget=2500,
+            use_cache=False,
+            **kwargs):
         shared_masked_lm = transformers.AutoModelForCausalLM.from_pretrained("distilroberta-base")
         shared_tokenizer = transformers.AutoTokenizer.from_pretrained("distilroberta-base")
 

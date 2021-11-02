@@ -4,13 +4,20 @@ import numpy as np
 from textattack.models.wrappers import ModelWrapper
 from textattackner.utils import get_tokens
 
+from textattackner.utils import postprocess_ner_output
 from textattackner.models.exceptions import PredictionError
+
+from transformers import (
+    AutoTokenizer,
+    AutoModelForTokenClassification
+)
 
 
 class NERModelWrapper(ModelWrapper):
     def __init__(self, model, tokenizer, postprocess_func):
         self.model = model
         self.tokenizer = tokenizer
+
         # The post-processing function must accept three arguments:
         #
         # original_text: AttackedText instance of the original text
@@ -65,47 +72,6 @@ class NERModelWrapper(ModelWrapper):
         outputs = self.model(encoded_sample)[0][0].cpu().numpy()
         return np.exp(outputs) / np.exp(outputs).sum(-1, keepdims=True)
 
-    def get_grad(self, text_input):
-        emb_grads = []
-
-        def grad_hook(module, grad_in, grad_out):
-            emb_grads.append(grad_out[0])
-
-        self.model.train()
-        
-        embeddings = self.model.get_input_embeddings()
-
-        original_state = embeddings.weight.requires_grad
-        embeddings.weight.requires_grad = True
-
-        embeddings_hook = embeddings.register_backward_hook(grad_hook)
-        
-        self.model.zero_grad()
-        
-        encoded_input = self.encode([text_input])[0]
-        prediction = self.model(encoded_input).logits
-        output = torch.argmax(prediction, dim=2)
-
-        # FIXME: This is how it's done for classification (HuggingFaceModelWrapper).
-        # I am really confused on the why you would compare the prediction to the argmax'd
-        # prediction itself
-        loss = self.model(encoded_input, labels=output)[0]
-        loss.backward()
-        
-        # Gradient of the embeddings
-        grad = torch.transpose(emb_grads[0], 0, 1).cpu().numpy()
-
-        # Restore context
-        embeddings.weight.requires_grad = original_state
-        embeddings_hook.remove()
-
-        self.model.eval()
-        
-        return {
-            "ids": encoded_input[0].tolist(),
-            "gradient": grad
-        }
-
     def encode(self, inputs):
         return [self.tokenizer.encode(x, return_tensors="pt") for x in inputs]
 
@@ -114,3 +80,13 @@ class NERModelWrapper(ModelWrapper):
             self.tokenizer.convert_ids_to_tokens(self.tokenizer.encode(x, return_tensors="pt"))
             for x in inputs
         ]
+
+    @classmethod
+    def load_huggingface_model(self, model_name):
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        model = AutoModelForTokenClassification.from_pretrained(model_name)
+
+        return tokenizer, NERModelWrapper(
+            model,
+            tokenizer,
+            postprocess_func=postprocess_ner_output)

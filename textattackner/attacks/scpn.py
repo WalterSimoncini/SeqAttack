@@ -10,9 +10,10 @@ from textattackner.utils import postprocess_ner_output
 from textattack.attack_recipes import AttackRecipe
 from textattackner.utils.attack import NERAttack
 from textattackner.transformations import ParaphraseTransformation
+from .seqattack_recipe import SeqAttackRecipe
 
 
-class NERSCPNParaphrase(AttackRecipe):
+class NERSCPNParaphrase(SeqAttackRecipe):
     """
         Adversarial Example Generation with Syntactically Controlled
         Paraphrase Networks.
@@ -31,7 +32,8 @@ class NERSCPNParaphrase(AttackRecipe):
             goal_function_class,
             additional_constraints=[],
             query_budget=2500,
-            use_cache=False):
+            use_cache=False,
+            **kwargs):
         transformation = ParaphraseTransformation()
 
         constraints = [
@@ -61,3 +63,7 @@ class NERSCPNParaphrase(AttackRecipe):
             constraints,
             transformation,
             search_method)
+
+    @staticmethod
+    def get_ner_constraints(model_name, **kwargs):
+        return []

@@ -25,8 +25,8 @@ conda activate thesis
 # Install requirements
 # We are not using a requirements.txt file because it causes conflicts
 pip install torch==1.7.0
-pip install textattack
-pip install tensorflow tensorflow-hub
+pip install textattack==0.2.15
+pip install tensorflow==2.4.2 tensorflow-hub
 pip install pygit2 python-Levenshtein
 pip install seqeval
 pip install openattack

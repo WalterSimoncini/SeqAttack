@@ -1,53 +1,7 @@
-import json
+from tqdm import tqdm
 
 from seqeval.scheme import IOB2
 from seqeval.metrics import classification_report
-
-from .preprocess import remap_negations_single
-
-
-def load_attacked_dataset(path):
-    json_data = json.loads(
-        open(path).read())
-
-    samples_list = json_data
-
-    if type(json_data) == dict:
-        # Extract samples list from newer formats of the datasets
-        samples_list = json_data["attacked_samples"]
-
-    return json_data, samples_list
-
-
-def extract_attacked_dataset(attacked_dataset):
-    """
-        Creates a copy of the original dataset by replacing original
-        samples with their adversarial counterpart
-    """
-    out_attacked_dataset = []
-
-    for sample in attacked_dataset:
-        ner_labels = sample.get("original_labels", [])
-        input_text = sample["attacked_sample"]
-
-        if sample["status"] == "SuccessfulAttackResult":
-            input_text = sample["perturbed_text"]
-
-            if "final_truth_labels" in sample:
-                ner_labels = sample["final_truth_labels"]
-
-        input_text, ner_labels = remap_negations_single(
-            input_text,
-            ner_labels,
-            str_labels=True,
-            no_entity_label="O"
-        )
-
-        out_attacked_dataset.append((
-            input_text, ner_labels
-        ))
-
-    return out_attacked_dataset
 
 
 def calculate_metrics(model, dataset, label_names, mode=None):
@@ -59,7 +13,9 @@ def calculate_metrics(model, dataset, label_names, mode=None):
     """
     ground_truths, model_predictions = [], []
 
-    for (input_text, ground_truth_labels) in dataset:
+    for i in tqdm(range(len(dataset))):
+        input_text, ground_truth_labels = dataset[i]
+
         predicted_labels = predict_labels(
             model,
             input_text,

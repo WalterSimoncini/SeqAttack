@@ -3,7 +3,8 @@ from textattack.constraints import Constraint
 
 class SkipNegations(Constraint):
     """
-        A constraint that rejects texts that contain "do not"
+        A constraint that rejects texts that contain negations,
+        namely "do not", any word ending in "n't" and "does not"
     """
     def __init__(self):
         super().__init__(compare_against_original=True)

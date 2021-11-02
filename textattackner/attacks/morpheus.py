@@ -19,9 +19,10 @@ from textattackner.search import GreedySearchNER
 from textattackner.utils import postprocess_ner_output
 
 from textattackner.utils.attack import NERAttack
+from .seqattack_recipe import SeqAttackRecipe
 
 
-class MorpheusTan2020NER(AttackRecipe):
+class MorpheusTan2020NER(SeqAttackRecipe):
     """
         Samson Tan, Shafiq Joty, Min-Yen Kan, Richard Socher.
         It’s Morphin’ Time! Combating Linguistic Discrimination with Inflectional Perturbations
@@ -35,7 +36,8 @@ class MorpheusTan2020NER(AttackRecipe):
             goal_function_class,
             use_cache=True,
             query_budget=512,
-            additional_constraints=[]):
+            additional_constraints=[],
+            **kwargs):
         goal_function = goal_function_class(
             model,
             tokenizer,

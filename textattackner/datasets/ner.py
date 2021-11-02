@@ -1,13 +1,26 @@
+import random
+
+
 class NERDataset:
-    def __init__(self, dataset, label_names: list):
+    def __init__(
+        self,
+        dataset,
+        label_names: list,
+        num_examples: int = None,
+        dataset_name: str = None):
         """
             Initializes a new named entity recognition dataset.
 
             the dataset is given as a list of tuples in the form
             (text, ner_tags), where ner_tags is an array of class
-            labels.
+            labels (e.g. [0, 0, 2, ...]).
         """
-        self.dataset = dataset
+        if num_examples:
+            self.dataset = dataset[:num_examples]
+        else:
+            self.dataset = dataset
+
+        self.dataset_name = dataset_name
         self.current_idx = 0
         self.label_names = label_names
 
@@ -38,3 +51,11 @@ class NERDataset:
 
     def filter(self, filter_function):
         self.dataset = list(filter(filter_function, self.dataset))
+
+    def shuffle(self):
+        random.shuffle(self.dataset)
+
+    @property
+    def name(self):
+        """The dataset name if any"""
+        return self.dataset_name

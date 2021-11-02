@@ -4,7 +4,7 @@ import torch
 def remap_negations(dataset):
     """
         Given a dataset maps negations to the form
-        rootn ' t (e.g. do not --> don ' t,
+        root-n ' t (e.g. do not --> don ' t,
         does n't --> doesn ' t)
     """
     out_dataset = []
@@ -19,11 +19,7 @@ def remap_negations(dataset):
     return out_dataset
 
 
-def remap_negations_single(
-        text,
-        truth_labels,
-        str_labels=False,
-        no_entity_label=0):
+def remap_negations_single(text, truth_labels, str_labels=False):
     def fix_negation(i, words, labels):
         current_word = words[i]
 
