@@ -62,7 +62,8 @@ def attack(
         "query_budget": max_queries,
         "dataset": dataset,
         "max_entities_mispredicted": max_entities_mispredicted,
-        "output_path": output_path
+        "output_path": output_path,
+        "attack_timeout": attack_timeout
     }
 
 

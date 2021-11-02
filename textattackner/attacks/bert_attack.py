@@ -34,6 +34,7 @@ class BertAttackNER(SeqAttackRecipe):
             query_budget=2500,
             use_cache=False,
             max_entities_mispredicted=0.8,
+            attack_timeout=30,
             **kwargs):
         transformation = WordSwapMaskedLM(
             method="bert-attack",
@@ -77,4 +78,5 @@ class BertAttackNER(SeqAttackRecipe):
             constraints,
             transformation,
             search_method,
+            attack_timeout=attack_timeout,
             max_entities_mispredicted=max_entities_mispredicted)

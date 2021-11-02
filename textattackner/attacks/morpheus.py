@@ -37,6 +37,7 @@ class MorpheusTan2020NER(SeqAttackRecipe):
             use_cache=True,
             query_budget=512,
             additional_constraints=[],
+            attack_timeout=30,
             **kwargs):
         goal_function = goal_function_class(
             model,
@@ -61,9 +62,7 @@ class MorpheusTan2020NER(SeqAttackRecipe):
             RepeatModification(),
             # Do not modify stopwords
             StopwordModification(),
-            SkipNegations(),
-            # Avoid modifying ground truth named entities
-            NonNamedEntityConstraint()]
+            SkipNegations()]
 
         constraints.extend(additional_constraints)
 
@@ -74,4 +73,5 @@ class MorpheusTan2020NER(SeqAttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            attack_timeout=attack_timeout)

@@ -48,6 +48,7 @@ class NERTextFoolerJin2019(SeqAttackRecipe):
             additional_constraints=[],
             query_budget=2500,
             use_cache=False,
+            attack_timeout=30,
             **kwargs):
         #
         # Swap words with their 50 closest embedding nearest-neighbors.
@@ -67,8 +68,7 @@ class NERTextFoolerJin2019(SeqAttackRecipe):
             RepeatModification(), 
             StopwordModification(stopwords=stopwords),
             SkipNonASCII(),
-            SkipNegations(),
-            NonNamedEntityConstraint()]
+            SkipNegations()]
 
         # Minimum word embedding cosine similarity of 0.5.
         # (The paper claims 0.7, but analysis of the released code and some empirical
@@ -120,4 +120,5 @@ class NERTextFoolerJin2019(SeqAttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            attack_timeout=attack_timeout,)

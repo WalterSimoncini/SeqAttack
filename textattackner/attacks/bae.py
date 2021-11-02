@@ -50,6 +50,7 @@ class NERBAEGarg2019(SeqAttackRecipe):
             additional_constraints=[],
             query_budget=2500,
             use_cache=False,
+            attack_timeout=30,
             **kwargs):
         # "In this paper, we present a simple yet novel technique: BAE (BERT-based
         # Adversarial Examples), which uses a language model (LM) for token
@@ -74,8 +75,7 @@ class NERBAEGarg2019(SeqAttackRecipe):
             RepeatModification(),
             StopwordModification(),
             SkipNonASCII(),
-            SkipNegations(),
-            NonNamedEntityConstraint()]
+            SkipNegations()]
 
         # For the R operations we add an additional check for
         # grammatical correctness of the generated adversarial example by filtering
@@ -157,4 +157,5 @@ class NERBAEGarg2019(SeqAttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            attack_timeout=attack_timeout)

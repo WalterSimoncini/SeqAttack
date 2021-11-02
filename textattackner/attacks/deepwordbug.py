@@ -55,6 +55,7 @@ class NERDeepWordBugGao2018(SeqAttackRecipe):
             query_budget=512,
             additional_constraints=[],
             use_all_transformations=True,
+            attack_timeout=30,
             **kwargs):
         #
         # Swap characters out from words. Choose the best of four potential transformations.
@@ -116,7 +117,8 @@ class NERDeepWordBugGao2018(SeqAttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            attack_timeout=attack_timeout)
 
     @staticmethod
     def get_ner_constraints(model_name, **kwargs):

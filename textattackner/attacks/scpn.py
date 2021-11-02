@@ -33,6 +33,7 @@ class NERSCPNParaphrase(SeqAttackRecipe):
             additional_constraints=[],
             query_budget=2500,
             use_cache=False,
+            attack_timeout=30,
             **kwargs):
         transformation = ParaphraseTransformation()
 
@@ -62,7 +63,8 @@ class NERSCPNParaphrase(SeqAttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            attack_timeout=attack_timeout)
 
     @staticmethod
     def get_ner_constraints(model_name, **kwargs):

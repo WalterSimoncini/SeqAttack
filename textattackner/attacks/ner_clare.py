@@ -35,6 +35,7 @@ class NERCLARE(SeqAttackRecipe):
             additional_constraints=[],
             query_budget=2500,
             use_cache=False,
+            attack_timeout=30,
             **kwargs):
         shared_masked_lm = transformers.AutoModelForCausalLM.from_pretrained("distilroberta-base")
         shared_tokenizer = transformers.AutoTokenizer.from_pretrained("distilroberta-base")
@@ -63,9 +64,7 @@ class NERCLARE(SeqAttackRecipe):
             # Do not modify stopwords
             StopwordModification(),
             SkipNonASCII(),
-            SkipNegations(),
-            # Avoid modifying ground truth named entities
-            NonNamedEntityConstraint()
+            SkipNegations()
         ]
 
         constraints.extend(additional_constraints)
@@ -94,4 +93,5 @@ class NERCLARE(SeqAttackRecipe):
             goal_function,
             constraints,
             transformation,
-            search_method)
+            search_method,
+            attack_timeout=attack_timeout)
