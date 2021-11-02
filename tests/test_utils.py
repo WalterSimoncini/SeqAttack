@@ -1,5 +1,3 @@
-import pytest
-
 from textattackner.utils import elements_diff, pad_sequence
 
 

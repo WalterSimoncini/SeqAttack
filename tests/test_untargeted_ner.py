@@ -2,25 +2,27 @@ import json
 import torch
 import pytest
 
-from utils import get_conll2003_labels
-
 from textattackner.utils.ner_attacked_text import NERAttackedText
 
 from tests.utils import numeric_string_to_tensor
-from tests.fixtures import ner_model_wrapper, ner_tokenizer
+from tests.fixtures import (
+    ner_model_wrapper,
+    ner_tokenizer,
+    conll2003_labels
+)
 
 from textattackner.utils import postprocess_ner_output
 from textattackner.goal_functions import UntargetedNERGoalFunction
 
 
 @pytest.fixture(scope="module")
-def untargeted_ner_goal_function(ner_model_wrapper, ner_tokenizer):
+def untargeted_ner_goal_function(ner_model_wrapper, ner_tokenizer, conll2003_labels):
     return UntargetedNERGoalFunction(
         model_wrapper=ner_model_wrapper,
         tokenizer=ner_tokenizer,
         min_percent_entities_mispredicted=0.5,
         ner_postprocess_func=postprocess_ner_output,
-        label_names=get_conll2003_labels())
+        label_names=conll2003_labels)
 
 
 def test_ner_goal_function_get_score_confidence_example(untargeted_ner_goal_function):

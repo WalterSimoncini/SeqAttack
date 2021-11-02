@@ -1,23 +1,25 @@
 import pytest
 
-from utils import get_conll2003_labels
-
 from textattack.shared import AttackedText
 
-from tests.fixtures import ner_model_wrapper, ner_tokenizer
+from tests.fixtures import (
+    conll2003_labels,
+    ner_model_wrapper,
+    ner_tokenizer
+)
 
 from textattackner.utils import postprocess_ner_output
 from textattackner.goal_functions.untargeted_ner_strict import StrictUntargetedNERGoalFunction
 
 
 @pytest.fixture(scope="module")
-def strict_untargeted_ner_goal_function(ner_model_wrapper, ner_tokenizer):
+def strict_untargeted_ner_goal_function(ner_model_wrapper, ner_tokenizer, conll2003_labels):
     return StrictUntargetedNERGoalFunction(
         model_wrapper=ner_model_wrapper,
         tokenizer=ner_tokenizer,
         min_percent_entities_mispredicted=0.5,
         ner_postprocess_func=postprocess_ner_output,
-        label_names=get_conll2003_labels())
+        label_names=conll2003_labels)
 
 
 def test_score_per_token(strict_untargeted_ner_goal_function):
