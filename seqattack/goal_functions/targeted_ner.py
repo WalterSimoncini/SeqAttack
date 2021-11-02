@@ -4,7 +4,7 @@ import numpy as np
 from .ner_goal_function_result import NERGoalFunctionResult
 
 from textattack.goal_functions.goal_function import GoalFunction
-from textattackner.utils import diff_elements_count, tensor_mask
+from seqattack.utils import diff_elements_count, tensor_mask
 
 from .ner import NERGoalFunction
 

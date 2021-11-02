@@ -12,8 +12,8 @@ from commands.utils import (
     extract_attacked_dataset
 )
 
-from textattackner.models import NERModelWrapper
-from textattackner.datasets import NERHuggingFaceDataset
+from seqattack.models import NERModelWrapper
+from seqattack.datasets import NERHuggingFaceDataset
 
 
 @click.command()

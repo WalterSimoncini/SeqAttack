@@ -6,11 +6,11 @@ from textattack.transformations import WordSwapMaskedLM, CompositeTransformation
 from textattack.constraints.semantics.sentence_encoders import UniversalSentenceEncoder
 from textattack.constraints.pre_transformation import RepeatModification, StopwordModification
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.transformations import RoBERTaWordInsertionMaskedLM
-from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, SkipNegations
-from textattackner.search import GreedySearchNER
-from textattackner.utils.attack import NERAttack
+from seqattack.utils import postprocess_ner_output
+from seqattack.transformations import RoBERTaWordInsertionMaskedLM
+from seqattack.constraints import NonNamedEntityConstraint, SkipNonASCII, SkipNegations
+from seqattack.search import GreedySearchNER
+from seqattack.utils.attack import NERAttack
 from .seqattack_recipe import SeqAttackRecipe
 
 

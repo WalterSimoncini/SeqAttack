@@ -1,9 +1,9 @@
 import string
 import numpy as np
 
-from textattackner.datasets import NERDataset
+from seqattack.datasets import NERDataset
 from textattack.search_methods import GreedyWordSwapWIR
-from textattackner.utils import get_tokens
+from seqattack.utils import get_tokens
 
 
 class NERGreedyWordSwapWIR(GreedyWordSwapWIR):

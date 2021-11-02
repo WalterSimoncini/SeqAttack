@@ -1,5 +1,5 @@
 from textattack.constraints import Constraint
-from textattackner.models.exceptions import PredictionError
+from seqattack.models.exceptions import PredictionError
 
 
 class SkipModelErrors(Constraint):

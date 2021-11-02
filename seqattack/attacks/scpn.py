@@ -3,13 +3,13 @@ BAE (BAE: BERT-Based Adversarial Examples)
 ============================================
 
 """
-from textattackner.constraints import SkipNonASCII, SkipNegations
-from textattackner.search import GreedySearchNER
-from textattackner.utils import postprocess_ner_output
+from seqattack.constraints import SkipNonASCII, SkipNegations
+from seqattack.search import GreedySearchNER
+from seqattack.utils import postprocess_ner_output
 
 from textattack.attack_recipes import AttackRecipe
-from textattackner.utils.attack import NERAttack
-from textattackner.transformations import ParaphraseTransformation
+from seqattack.utils.attack import NERAttack
+from seqattack.transformations import ParaphraseTransformation
 from .seqattack_recipe import SeqAttackRecipe
 
 

@@ -1,12 +1,12 @@
 import click
 import random
 
-from textattackner.models import NERModelWrapper
-from textattackner.datasets import NERHuggingFaceDataset
-from textattackner.utils.attack_runner import AttackRunner
-from textattackner.goal_functions import get_goal_function
+from seqattack.models import NERModelWrapper
+from seqattack.datasets import NERHuggingFaceDataset
+from seqattack.utils.attack_runner import AttackRunner
+from seqattack.goal_functions import get_goal_function
 
-from textattackner.attacks import (
+from seqattack.attacks import (
     NERCLARE,
     BertAttackNER,
     NERBAEGarg2019,

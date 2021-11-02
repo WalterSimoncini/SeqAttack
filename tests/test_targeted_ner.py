@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.utils.ner_attacked_text import NERAttackedText
 
 from tests.fixtures import (
     ner_model_wrapper,
@@ -9,8 +9,8 @@ from tests.fixtures import (
     conll2003_labels
 )
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.goal_functions import TargetedNERGoalFunction
+from seqattack.utils import postprocess_ner_output
+from seqattack.goal_functions import TargetedNERGoalFunction
 
 
 @pytest.fixture(scope="module")

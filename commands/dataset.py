@@ -5,11 +5,11 @@ from tqdm import tqdm
 
 from commands.utils import remap_negations
 
-from textattackner.models import NERModelWrapper
-from textattackner.datasets import NERHuggingFaceDataset
-from textattackner.goal_functions import get_goal_function
-from textattackner.utils import postprocess_ner_output
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.models import NERModelWrapper
+from seqattack.datasets import NERHuggingFaceDataset
+from seqattack.goal_functions import get_goal_function
+from seqattack.utils import postprocess_ner_output
+from seqattack.utils.ner_attacked_text import NERAttackedText
 
 
 @click.command()

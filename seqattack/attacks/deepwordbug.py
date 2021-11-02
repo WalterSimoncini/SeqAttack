@@ -20,15 +20,15 @@ from textattack.transformations import (
     WordSwapRandomCharacterSubstitution,
 )
 
-from textattackner.models import NERModelWrapper
-from textattackner.search import NERGreedyWordSwapWIR
+from seqattack.models import NERModelWrapper
+from seqattack.search import NERGreedyWordSwapWIR
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.utils.attack import NERAttack
-from textattackner.constraints import SkipNegations
+from seqattack.utils import postprocess_ner_output
+from seqattack.utils.attack import NERAttack
+from seqattack.constraints import SkipNegations
 from .seqattack_recipe import SeqAttackRecipe
 
-from textattackner.constraints import (
+from seqattack.constraints import (
     SkipModelErrors,
     AvoidNamedEntityConstraint,
     NonNamedEntityConstraint

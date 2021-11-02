@@ -8,8 +8,8 @@ from tests.fixtures import (
     ner_tokenizer
 )
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.goal_functions.untargeted_ner_strict import StrictUntargetedNERGoalFunction
+from seqattack.utils import postprocess_ner_output
+from seqattack.goal_functions.untargeted_ner_strict import StrictUntargetedNERGoalFunction
 
 
 @pytest.fixture(scope="module")

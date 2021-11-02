@@ -12,13 +12,13 @@ from textattack.shared.attack import Attack
 from textattack.attack_recipes import AttackRecipe
 from textattack.transformations import WordSwapInflections
 
-from textattackner.constraints import NonNamedEntityConstraint, SkipNegations
-from textattackner.goal_functions import UntargetedNERGoalFunction
+from seqattack.constraints import NonNamedEntityConstraint, SkipNegations
+from seqattack.goal_functions import UntargetedNERGoalFunction
 
-from textattackner.search import GreedySearchNER
-from textattackner.utils import postprocess_ner_output
+from seqattack.search import GreedySearchNER
+from seqattack.utils import postprocess_ner_output
 
-from textattackner.utils.attack import NERAttack
+from seqattack.utils.attack import NERAttack
 from .seqattack_recipe import SeqAttackRecipe
 
 

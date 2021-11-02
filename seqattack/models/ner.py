@@ -2,10 +2,10 @@ import torch
 import numpy as np
 
 from textattack.models.wrappers import ModelWrapper
-from textattackner.utils import get_tokens
+from seqattack.utils import get_tokens
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.models.exceptions import PredictionError
+from seqattack.utils import postprocess_ner_output
+from seqattack.models.exceptions import PredictionError
 
 from transformers import (
     AutoTokenizer,

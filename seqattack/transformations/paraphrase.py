@@ -3,7 +3,7 @@ import copy
 from OpenAttack.attackers import SCPNAttacker
 
 from textattack.transformations import Transformation
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.utils.ner_attacked_text import NERAttackedText
 
 
 class ParaphraseTransformation(Transformation):

@@ -1,4 +1,4 @@
-from textattackner.utils import diff_elements_count, tensor_mask
+from seqattack.utils import diff_elements_count, tensor_mask
 
 from .untargeted_ner import UntargetedNERGoalFunction
 

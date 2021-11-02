@@ -3,10 +3,10 @@ from textattack.constraints.overlap import MaxWordsPerturbed
 from textattack.constraints.semantics.sentence_encoders import UniversalSentenceEncoder
 from textattack.constraints.pre_transformation import RepeatModification, StopwordModification
 
-from textattackner.constraints import SkipNonASCII, SkipNegations
-from textattackner.search import NERGreedyWordSwapWIR
-from textattackner.utils import postprocess_ner_output
-from textattackner.utils.attack import NERAttack
+from seqattack.constraints import SkipNonASCII, SkipNegations
+from seqattack.search import NERGreedyWordSwapWIR
+from seqattack.utils import postprocess_ner_output
+from seqattack.utils.attack import NERAttack
 from .seqattack_recipe import SeqAttackRecipe
 
 

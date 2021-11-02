@@ -1,9 +1,9 @@
 import pytest
 
 from transformers import AutoTokenizer
-from textattackner.models import NERModelWrapper
+from seqattack.models import NERModelWrapper
 
-from textattackner.constraints import AvoidNamedEntityConstraint
+from seqattack.constraints import AvoidNamedEntityConstraint
 
 
 @pytest.fixture(scope="module")

@@ -20,12 +20,12 @@ from textattack.transformations import WordSwapEmbedding
 
 from textattack.attack_recipes import AttackRecipe
 
-from textattackner.search import NERGreedyWordSwapWIR
-from textattackner.utils import postprocess_ner_output
-from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, \
+from seqattack.search import NERGreedyWordSwapWIR
+from seqattack.utils import postprocess_ner_output
+from seqattack.constraints import NonNamedEntityConstraint, SkipNonASCII, \
     SkipNegations
 
-from textattackner.utils.attack import NERAttack
+from seqattack.utils.attack import NERAttack
 from .seqattack_recipe import SeqAttackRecipe
 
 

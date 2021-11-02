@@ -2,7 +2,7 @@ import json
 import torch
 import pytest
 
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.utils.ner_attacked_text import NERAttackedText
 
 from tests.utils import numeric_string_to_tensor
 from tests.fixtures import (
@@ -11,8 +11,8 @@ from tests.fixtures import (
     conll2003_labels
 )
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.goal_functions import UntargetedNERGoalFunction
+from seqattack.utils import postprocess_ner_output
+from seqattack.goal_functions import UntargetedNERGoalFunction
 
 
 @pytest.fixture(scope="module")

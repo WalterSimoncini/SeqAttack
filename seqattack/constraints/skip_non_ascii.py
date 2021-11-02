@@ -1,5 +1,5 @@
 from textattack.constraints import Constraint
-from textattackner.utils import is_ascii
+from seqattack.utils import is_ascii
 
 
 class SkipNonASCII(Constraint):

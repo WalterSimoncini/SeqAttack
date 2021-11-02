@@ -1,6 +1,6 @@
-from textattackner.models import NERModelWrapper
+from seqattack.models import NERModelWrapper
 from textattack.attack_recipes import AttackRecipe
-from textattackner.constraints import (
+from seqattack.constraints import (
     SkipModelErrors,
     AvoidNamedEntityConstraint,
     NonNamedEntityConstraint

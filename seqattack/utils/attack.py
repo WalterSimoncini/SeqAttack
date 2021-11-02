@@ -2,7 +2,7 @@ import signal
 import numpy as np
 
 from textattack.shared import Attack
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.utils.ner_attacked_text import NERAttackedText
 from textattack.goal_function_results import GoalFunctionResultStatus
 
 from textattack.attack_results import (

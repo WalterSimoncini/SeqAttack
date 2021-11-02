@@ -5,7 +5,7 @@ from .ner_goal_function_result import NERGoalFunctionResult
 
 from textattack.goal_functions.goal_function import GoalFunction
 
-from textattackner.utils import get_tokens, tensor_mask
+from seqattack.utils import get_tokens, tensor_mask
 
 
 class NERGoalFunction(GoalFunction):

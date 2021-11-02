@@ -13,11 +13,11 @@ from textattack.transformations import WordSwapMaskedLM
 from textattack.constraints.semantics.sentence_encoders import \
     UniversalSentenceEncoder
 
-from textattackner.constraints import NonNamedEntityConstraint, SkipNonASCII, SkipNegations
-from textattackner.search import NERGreedyWordSwapWIR
-from textattackner.utils import postprocess_ner_output
+from seqattack.constraints import NonNamedEntityConstraint, SkipNonASCII, SkipNegations
+from seqattack.search import NERGreedyWordSwapWIR
+from seqattack.utils import postprocess_ner_output
 
-from textattackner.utils.attack import NERAttack
+from seqattack.utils.attack import NERAttack
 from .seqattack_recipe import SeqAttackRecipe
 
 

@@ -1,7 +1,7 @@
 from textattack.constraints import Constraint
 
-from textattackner.models import NERModelWrapper
-from textattackner.datasets import NERDataset
+from seqattack.models import NERModelWrapper
+from seqattack.datasets import NERDataset
 
 
 class NonNamedEntityConstraint(Constraint):

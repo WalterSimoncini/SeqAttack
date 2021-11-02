@@ -1,4 +1,4 @@
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.utils.ner_attacked_text import NERAttackedText
 from tests.fixtures import (
     # This fixture is not used directly, but if removed tests won't run
     ner_model_wrapper,

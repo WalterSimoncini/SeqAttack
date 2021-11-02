@@ -1,7 +1,7 @@
 import pytest
 
-from textattackner.utils.ner_attacked_text import NERAttackedText
-from textattackner.constraints import NonNamedEntityConstraint
+from seqattack.utils.ner_attacked_text import NERAttackedText
+from seqattack.constraints import NonNamedEntityConstraint
 
 
 @pytest.fixture

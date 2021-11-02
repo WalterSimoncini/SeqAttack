@@ -1,11 +1,11 @@
 from textattack.constraints import Constraint
 
-from textattackner.models import NERModelWrapper
-from textattackner.datasets import NERDataset
+from seqattack.models import NERModelWrapper
+from seqattack.datasets import NERDataset
 
 from textattack.shared.attacked_text import AttackedText
 
-from textattackner.utils import elements_diff
+from seqattack.utils import elements_diff
 
 
 class AvoidNamedEntityConstraint(Constraint):
