@@ -119,7 +119,6 @@ class NERAttack(Attack):
            # FIXME: Handle timeouts etc.
            print(f"Could not attack sample: {ex}")
 
-           # FIXME: Maybe we want to change the status etc?
            return FailedAttackResult(
                initial_result,
                initial_result

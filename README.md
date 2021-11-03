@@ -8,7 +8,9 @@ SeqAttack is a framework for conducting adversarial attacks against Named Entity
 
 ### Setup
 
-Run `pip install -r requirements.txt` and you're good to go! If you want to run experiments on a virtual machine, check out `scripts/gcp.sh`. The code was tested with `python 3.7`, if you're using a different version your mileage may vary.
+Run `pip install -r requirements.txt` and you're good to go! If you want to run experiments on a fresh virtual machine, check out `scripts/gcp.sh` which installs all system dependencies for running the code. 
+
+The code was tested with `python 3.7`, if you're using a different version your mileage may vary.
 
 ### Usage
 
@@ -53,7 +55,7 @@ while the model labels are:
 
 `O (0), B-MISC (1), I-MISC (2), B-PER (3), I-PER (4) B-ORG (5), I-ORG (6) B-LOC (7), I-LOC (8)`
 
-Thus a remapping is needed and `labels map` takes care of it.
+Thus a remapping is needed and `labels_map` takes care of it.
 
 ---
 
