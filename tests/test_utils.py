@@ -1,6 +1,4 @@
-import pytest
-
-from textattackner.utils import elements_diff, pad_sequence
+from seqattack.utils import elements_diff, pad_sequence
 
 
 def test_elements_diff():

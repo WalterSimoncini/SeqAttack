@@ -1,4 +1,4 @@
-# Disk size should be 50 GB
+# Disk size should be ~50 GB
 
 # Install python3
 sudo apt update
@@ -19,14 +19,14 @@ sh Anaconda3-2020.11-Linux-x86_64.sh -b
 source ~/.bashrc
 
 # Create python 3.6 environment
-conda create -n thesis python=3.6 -y
+conda create -n thesis python=3.7 -y
 conda activate thesis
 
 # Install requirements
 # We are not using a requirements.txt file because it causes conflicts
 pip install torch==1.7.0
-pip install textattack
-pip install tensorflow tensorflow-hub
+pip install textattack==0.2.15
+pip install tensorflow==2.4.2 tensorflow-hub
 pip install pygit2 python-Levenshtein
 pip install seqeval
 pip install openattack

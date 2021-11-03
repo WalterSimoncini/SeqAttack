@@ -1,7 +1,9 @@
-import pytest
-
-from textattackner.utils.ner_attacked_text import NERAttackedText
-from tests.fixtures import ner_model_wrapper, avoid_named_entity_constraint
+from seqattack.utils.ner_attacked_text import NERAttackedText
+from tests.fixtures import (
+    # This fixture is not used directly, but if removed tests won't run
+    ner_model_wrapper,
+    avoid_named_entity_constraint
+)
 
 
 def test_avoid_named_entities(avoid_named_entity_constraint):

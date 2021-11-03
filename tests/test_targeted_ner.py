@@ -1,24 +1,26 @@
 import pytest
 import torch
 
-from utils import get_conll2003_labels
+from seqattack.utils.ner_attacked_text import NERAttackedText
 
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from tests.fixtures import (
+    ner_model_wrapper,
+    ner_tokenizer,
+    conll2003_labels
+)
 
-from tests.fixtures import ner_model_wrapper, ner_tokenizer
-
-from textattackner.utils import postprocess_ner_output
-from textattackner.goal_functions import TargetedNERGoalFunction
+from seqattack.utils import postprocess_ner_output
+from seqattack.goal_functions import TargetedNERGoalFunction
 
 
 @pytest.fixture(scope="module")
-def targeted_ner_goal_function(ner_model_wrapper, ner_tokenizer):
+def targeted_ner_goal_function(ner_model_wrapper, ner_tokenizer, conll2003_labels):
     return TargetedNERGoalFunction(
         model_wrapper=ner_model_wrapper,
         tokenizer=ner_tokenizer,
         min_percent_entities_mispredicted=0.5,
         ner_postprocess_func=postprocess_ner_output,
-        label_names=get_conll2003_labels())
+        label_names=conll2003_labels)
 
 
 def test_get_score_confidence(targeted_ner_goal_function):

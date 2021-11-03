@@ -1,19 +1,14 @@
 import pytest
 
-from textattackner.models import NERModelWrapper
-from transformers import AutoTokenizer, AutoModelForTokenClassification
+from transformers import AutoTokenizer
+from seqattack.models import NERModelWrapper
 
-from textattackner.utils import postprocess_ner_output
-from textattackner.constraints import AvoidNamedEntityConstraint, \
-    SkipModelErrors
+from seqattack.constraints import AvoidNamedEntityConstraint
 
 
 @pytest.fixture(scope="module")
 def ner_model_wrapper():
-    return NERModelWrapper(
-        model=AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER"),
-        tokenizer=AutoTokenizer.from_pretrained("dslim/bert-base-NER"),
-        postprocess_func=postprocess_ner_output)
+    return NERModelWrapper.load_huggingface_model("dslim/bert-base-NER")[1]
 
 
 @pytest.fixture(scope="module")
@@ -22,12 +17,10 @@ def ner_tokenizer():
 
 
 @pytest.fixture(scope="module")
+def conll2003_labels():
+    return ["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC"]
+
+
+@pytest.fixture()
 def avoid_named_entity_constraint(ner_model_wrapper):
-    return AvoidNamedEntityConstraint(
-        ner_model_wrapper=ner_model_wrapper)
-
-
-@pytest.fixture(scope="module")
-def skip_model_errors(ner_model_wrapper):
-    return SkipModelErrors(
-        model_wrapper=ner_model_wrapper)
+    return AvoidNamedEntityConstraint(ner_model_wrapper=ner_model_wrapper)

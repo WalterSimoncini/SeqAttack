@@ -1,6 +1,6 @@
 import pytest
 
-from textattackner.utils.ner_attacked_text import NERAttackedText
+from seqattack.utils.ner_attacked_text import NERAttackedText
 
 
 def test_ground_truth_inserted_index():
