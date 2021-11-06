@@ -94,7 +94,12 @@ class NERAttack(Attack):
                     continue
 
                 self.goal_function.min_percent_entities_mispredicted = target
-                result = super().attack_one(initial_result)
+
+                if best_result is not None:
+                    # Continue the attack from the current best result
+                    result = super().attack_one(best_result)
+                else:
+                    result = super().attack_one(initial_result)
 
                 current_score = self.goal_function._get_score(
                     result.perturbed_result.unprocessed_raw_output,
