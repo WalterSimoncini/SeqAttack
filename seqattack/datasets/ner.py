@@ -1,3 +1,4 @@
+import copy
 import random
 
 
@@ -54,6 +55,9 @@ class NERDataset:
 
     def shuffle(self):
         random.shuffle(self.dataset)
+
+    def tolist(self):
+        return copy.deepcopy(self.dataset)
 
     @property
     def name(self):

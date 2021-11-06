@@ -1,3 +1,4 @@
+from seqattack.goal_functions.ner_goal_function_result import NERGoalFunctionResult
 import signal
 import numpy as np
 
@@ -128,10 +129,7 @@ class NERAttack(Attack):
     def _get_examples_from_dataset(self, dataset, indices=None):
         # FIXME: indices is currently ignored
         for example, ground_truth in dataset:
-            model_raw, _, valid_prediction = self.__is_example_valid(example, ground_truth)
-
-            if not valid_prediction:
-                continue
+            model_raw, _, valid_prediction = self.__is_example_valid(example)
 
             attacked_text = NERAttackedText(
                 example,
@@ -143,6 +141,18 @@ class NERAttack(Attack):
                 ground_truth=[int(x) for x in ground_truth]
             )
 
+            if not valid_prediction:
+                yield NERGoalFunctionResult(
+                    attacked_text=attacked_text,
+                    raw_output=None,
+                    output=None,
+                    goal_status=GoalFunctionResultStatus.SKIPPED,
+                    score=0,
+                    num_queries=0,
+                    ground_truth_output=None,
+                    unprocessed_raw_output=None
+                )
+
             # If the original prediction mispredicts more entities than
             # max_entities_mispredicted then we skip the example
             self.goal_function.min_percent_entities_mispredicted = self.max_entities_mispredicted
@@ -153,7 +163,7 @@ class NERAttack(Attack):
 
             yield goal_function_result
 
-    def __is_example_valid(self, sample, ground_truth):
+    def __is_example_valid(self, sample):
         """Checks whether the model can correctly predict the sample or not"""
         model_raw = self.goal_function.model([sample])[0]
         model_pred = self.goal_function.model.process_raw_output(model_raw, sample)

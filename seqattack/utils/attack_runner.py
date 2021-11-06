@@ -21,7 +21,7 @@ class AttackRunner():
         print(f"Starting attack on {self.dataset.name}")
         print("*****************************************")
 
-        for sample, ground_truth in self.dataset:
+        for sample, ground_truth in self.dataset.tolist():
             sample_labels = self.__prediction_to_labels(
                 ground_truth,
                 self.dataset.label_names
