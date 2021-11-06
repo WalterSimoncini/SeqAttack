@@ -64,8 +64,9 @@ class AttackRunner():
 
         try:
             perturbed_words = perturbed_text.words_diff_ratio(original_text)
-        except ZeroDivisionError:
+        except (ZeroDivisionError, AssertionError):
             # Assign a difference of zero in case the input text has no words
+            # or the two texts have a different words count
             perturbed_words = 0
 
         data = {
