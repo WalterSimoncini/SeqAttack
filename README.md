@@ -6,6 +6,8 @@ SeqAttack is a framework for conducting adversarial attacks against Named Entity
 - Develop new attack strategies
 - Guided data augmentation, generating additional training samples that can be used to fix a model's shortcomings
 
+The **SeqAttack** paper is available [here](https://aclanthology.org/2021.emnlp-demo.35.pdf).
+
 ### Setup
 
 Run `pip install -r requirements.txt` and you're good to go! If you want to run experiments on a fresh virtual machine, check out `scripts/gcp.sh` which installs all system dependencies for running the code. 

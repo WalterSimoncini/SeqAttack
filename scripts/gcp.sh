@@ -18,9 +18,9 @@ sh Anaconda3-2020.11-Linux-x86_64.sh -b
 # Reload shell
 source ~/.bashrc
 
-# Create python 3.6 environment
-conda create -n thesis python=3.7 -y
-conda activate thesis
+# Create python 3.7 environment
+conda create -n seqattack python=3.7 -y
+conda activate seqattack
 
 # Install requirements
 # We are not using a requirements.txt file because it causes conflicts
